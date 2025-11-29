@@ -1,6 +1,6 @@
 # 🐾 ระบบจัดการคลินิกสัตว์ (Pet Clinic Management System)
 
-[![Project Status](https://img.shields.io/badge/Status-Completed-brightgreen.svg)](YOUR_REPO_LINK)
+[![Project Status](https://img.shields.io/badge/Status-Completed-brightgreen.svg)](https://github.com/James28Dev/Pet-Clinic-Webapp)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/James28Dev/Pet-Clinic-Webapp/blob/main/LICENSE)
 
 **Fontend:**
