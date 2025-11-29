@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="th"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="stylesheet" href="/styles.css"/><title>สัตว์เลี้ยง | คลินิกสัตว์</title></head>
+<body>
+<div id="nav"></div>
+<main>
+  <h2>สัตว์เลี้ยง</h2>
+  <div class="card">
+    <form id="form-pet" class="grid">
+      <label>เจ้าของ<select id="pet-owner"></select></label>
+      <label>ชื่อสัตว์<input id="pet-name" required></label>
+      <label>ชนิด<input id="pet-species" required></label>
+      <label>พันธุ์<input id="pet-breed"></label>
+      <label>เพศ<select id="pet-sex"><option value="M">ผู้</option><option value="F">เมีย</option></select></label>
+      <label>วันเกิด<input type="date" id="pet-birth"></label>
+      <button class="primary" type="submit">เพิ่ม</button>
+    </form>
+  </div>
+  <table id="tbl-pets">
+    <thead><tr><th>ชื่อ</th><th>ชนิด</th><th>พันธุ์</th><th>เพศ</th><th>วันเกิด</th><th>เจ้าของ</th><th></th></tr></thead>
+    <tbody></tbody>
+  </table>
+</main>
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <header id="modal-title"></header>
+    <div class="content" id="modal-content"></div>
+    <footer>
+      <button class="ghost" id="modal-cancel">ยกเลิก</button>
+      <button class="primary" id="modal-save">บันทึก</button>
+    </footer>
+  </div>
+</div>
+<footer>Pet Clinic • Node.js + MySQL • © 2025</footer>
+<script src="/client.js"></script>
+<script>
+  loadNavbar(); protectPage();
+  (async()=>{ await loadOwners(); await loadPets(); })();
+</script>
+</body></html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="th"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="stylesheet" href="/styles.css"/><title>เจ้าของสัตว์ | คลินิกสัตว์</title></head>
+<body>
+<div id="nav"></div>
+<main>
+  <h2>เจ้าของสัตว์เลี้ยง</h2>
+  <div class="card">
+    <form id="form-owner" class="grid">
+      <label>ชื่อ-สกุล<input id="owner-name" required></label>
+      <label>โทรศัพท์<input id="owner-phone" required></label>
+      <label>ที่อยู่<input id="owner-address" required></label>
+      <button class="primary" type="submit">เพิ่ม</button>
+    </form>
+  </div>
+  <table id="tbl-owners">
+    <thead><tr><th>ชื่อ</th><th>โทร</th><th>ที่อยู่</th><th></th></tr></thead>
+    <tbody></tbody>
+  </table>
+</main>
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <header id="modal-title"></header>
+    <div class="content" id="modal-content"></div>
+    <footer>
+      <button class="ghost" id="modal-cancel">ยกเลิก</button>
+      <button class="primary" id="modal-save">บันทึก</button>
+    </footer>
+  </div>
+</div>
+<footer>Pet Clinic • Node.js + MySQL • © 2025</footer>
+<script src="/client.js"></script>
+<script>loadNavbar(); protectPage(); loadOwnersTable();</script>
+</body></html>

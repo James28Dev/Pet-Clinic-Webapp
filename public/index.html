@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ระบบคลินิกสัตว์</title>
+
+  <!-- ไฟล์ตกแต่งหน้าเว็บ -->
+  <link rel="stylesheet" href="/styles.css"/>
+</head>
+
+<body>
+
+  <!-- ส่วนหัวเว็บไซต์ + เมนูหลัก -->
+  <header>
+    <h1>🐾 ระบบคลินิกสัตว์</h1>
+    <nav>
+      <button data-tab="appointments">ใบนัดหมาย</button>
+      <button data-tab="treatments">ประวัติการรักษา</button>
+      <button data-tab="pets">สัตว์เลี้ยง</button>
+      <button data-tab="owners">เจ้าของสัตว์</button>
+    </nav>
+  </header>
+
+  <!-- พื้นที่แสดงเนื้อหาของแต่ละหน้า -->
+  <main>
+
+    <!-- หน้า: ใบนัดหมาย -->
+    <section id="tab-appointments" class="tab active">
+      <h2>ใบนัดหมาย</h2>
+
+      <!-- ฟอร์มเพิ่มใบนัด -->
+      <div class="card">
+        <form id="form-appointment">
+          <div class="grid">
+
+            <!-- เลือกเจ้าของ -->
+            <label>เจ้าของสัตว์:
+              <select id="appt-owner"></select>
+            </label>
+
+            <!-- รายชื่อสัตว์ของเจ้าของที่เลือก -->
+            <label>สัตว์เลี้ยง:
+              <select id="appt-pet"></select>
+            </label>
+
+            <!-- เลือกสัตวแพทย์ -->
+            <label>สัตวแพทย์:
+              <select id="appt-vet"></select>
+            </label>
+
+            <!-- วัน-เวลานัด -->
+            <label>วันและเวลา:
+              <input type="datetime-local" id="appt-datetime" required />
+            </label>
+
+            <!-- สาเหตุการเข้ารักษา -->
+            <label>เหตุผล:
+              <input type="text" id="appt-reason" placeholder="เช่น ตรวจสุขภาพ, ฉีดวัคซีน" />
+            </label>
+
+          </div>
+          <button type="submit">เพิ่มใบนัด</button>
+        </form>
+      </div>
+
+      <!-- ตัวกรองวันเวลา -->
+      <div class="toolbar">
+        <input type="date" id="filter-from"/> ถึง
+        <input type="date" id="filter-to"/>
+        <button id="btn-filter">กรอง</button>
+        <button id="btn-clear">ล้าง</button>
+      </div>
+
+      <!-- ตารางรายการใบนัด -->
+      <table id="tbl-appointments">
+        <thead>
+          <tr>
+            <th>วัน-เวลา</th>
+            <th>สัตว์เลี้ยง</th>
+            <th>เจ้าของ</th>
+            <th>สัตวแพทย์</th>
+            <th>เหตุผล</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- หน้า: ประวัติการรักษา -->
+    <section id="tab-treatments" class="tab">
+      <h2>ประวัติการรักษา</h2>
+
+      <!-- ฟอร์มบันทึกการรักษา -->
+      <div class="card">
+        <form id="form-treatment">
+          <div class="grid">
+
+            <label>สัตว์เลี้ยง:
+              <select id="treat-pet"></select>
+            </label>
+
+            <label>สัตวแพทย์:
+              <select id="treat-vet"></select>
+            </label>
+
+            <label>อ้างอิงใบนัด (ถ้ามี):
+              <input type="number" id="treat-appt" placeholder="ใส่หมายเลขใบนัด (ไม่บังคับ)"/>
+            </label>
+
+            <label>การวินิจฉัย:
+              <input type="text" id="treat-dx" required/>
+            </label>
+
+            <label>ยา / วิธีรักษา:
+              <input type="text" id="treat-med"/>
+            </label>
+
+            <label>วันที่รักษา:
+              <input type="date" id="treat-date" required/>
+            </label>
+
+            <label>บันทึกเพิ่มเติม:
+              <input type="text" id="treat-notes"/>
+            </label>
+
+          </div>
+          <button type="submit">บันทึกการรักษา</button>
+        </form>
+      </div>
+
+      <!-- ตารางประวัติรักษา -->
+      <table id="tbl-treatments">
+        <thead>
+          <tr>
+            <th>วันที่</th>
+            <th>สัตว์เลี้ยง</th>
+            <th>สัตวแพทย์</th>
+            <th>วินิจฉัย</th>
+            <th>การรักษา/ยา</th>
+            <th>ใบนัดอ้างอิง</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- หน้า: สัตว์เลี้ยง -->
+    <section id="tab-pets" class="tab">
+      <h2>สัตว์เลี้ยง</h2>
+
+      <!-- ฟอร์มเพิ่มข้อมูลสัตว์ -->
+      <div class="card">
+        <form id="form-pet">
+          <div class="grid">
+
+            <label>เจ้าของ:
+              <select id="pet-owner"></select>
+            </label>
+
+            <label>ชื่อสัตว์:
+              <input type="text" id="pet-name" required/>
+            </label>
+
+            <label>ชนิด:
+              <input type="text" id="pet-species" required/>
+            </label>
+
+            <label>พันธุ์:
+              <input type="text" id="pet-breed"/>
+            </label>
+
+            <label>เพศ:
+              <select id="pet-sex">
+                <option value="M">ผู้</option>
+                <option value="F">เมีย</option>
+              </select>
+            </label>
+
+            <label>วันเกิด:
+              <input type="date" id="pet-birth"/>
+            </label>
+
+          </div>
+          <button type="submit">เพิ่มสัตว์เลี้ยง</button>
+        </form>
+      </div>
+
+      <!-- ตารางสัตว์เลี้ยง -->
+      <table id="tbl-pets">
+        <thead>
+          <tr>
+            <th>ชื่อ</th>
+            <th>ชนิด</th>
+            <th>พันธุ์</th>
+            <th>เพศ</th>
+            <th>วันเกิด</th>
+            <th>เจ้าของ</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+
+    <!-- หน้า: เจ้าของสัตว์ -->
+    <section id="tab-owners" class="tab">
+      <h2>เจ้าของสัตว์</h2>
+
+      <!-- ฟอร์มเพิ่มเจ้าของ -->
+      <div class="card">
+        <form id="form-owner">
+          <div class="grid">
+
+            <label>ชื่อ-สกุล:
+              <input type="text" id="owner-name" required/>
+            </label>
+
+            <label>เบอร์โทร:
+              <input type="text" id="owner-phone" required/>
+            </label>
+
+            <label>ที่อยู่:
+              <input type="text" id="owner-address" required/>
+            </label>
+
+          </div>
+          <button type="submit">เพิ่มเจ้าของ</button>
+        </form>
+      </div>
+
+      <!-- ตารางเจ้าของ -->
+      <table id="tbl-owners">
+        <thead>
+          <tr>
+            <th>ชื่อ</th>
+            <th>โทรศัพท์</th>
+            <th>ที่อยู่</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- ส่วนท้ายเว็บไซต์ -->
+  <footer>
+    <small>Pet Clinic • Node.js + MySQL • © 2025</small>
+  </footer>
+
+  <!-- ไฟล์ควบคุมการทำงานของหน้า -->
+  <script src="/client.js"></script>
+
+</body>
+</html>

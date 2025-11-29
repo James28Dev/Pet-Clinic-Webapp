@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="th"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="stylesheet" href="/styles.css"/><title>สมัครสมาชิก | คลินิกสัตว์</title></head>
+<body class="login-container">
+  <div class="login-card">
+    <h2>✏️ สมัครสมาชิก</h2>
+    <input type="text" id="reg-fullname" placeholder="ชื่อ-สกุล" required>
+    <input type="text" id="reg-username" placeholder="ชื่อผู้ใช้" required>
+    <input type="password" id="reg-password" placeholder="รหัสผ่าน" required>
+    <select id="reg-role">
+      <option value="staff">เจ้าหน้าที่</option>
+      <option value="vet">สัตวแพทย์</option>
+      <option value="admin">ผู้ดูแลระบบ</option>
+    </select>
+    <button id="btn-register">สมัครสมาชิก</button>
+    <p class="register-text">มีบัญชีแล้ว? <a href="/">กลับไปเข้าสู่ระบบ</a></p>
+  </div>
+<script src="/client-auth.js"></script>
+</body></html>

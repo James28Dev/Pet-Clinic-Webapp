@@ -1,0 +1,41 @@
+<!DOCTYPE html><html lang="th"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="stylesheet" href="/styles.css"/><title>ประวัติรักษา | คลินิกสัตว์</title></head>
+<body>
+<div id="nav"></div>
+<main>
+  <h2>ประวัติการรักษา</h2>
+  <div class="card">
+    <form id="form-treatment" class="grid">
+      <label>สัตว์เลี้ยง<select id="treat-pet"></select></label>
+      <label>สัตวแพทย์<select id="treat-vet"></select></label>
+      <label>ใบนัด (ถ้ามี)<input id="treat-appt" type="number" min="1" placeholder="appointment_id"></label>
+      <label>วินิจฉัย<input id="treat-dx" required></label>
+      <label>ยา/การรักษา<input id="treat-med"></label>
+      <label>วันที่รักษา<input id="treat-date" type="date" required></label>
+      <label>บันทึกเพิ่มเติม<input id="treat-notes"></label>
+      <button class="primary" type="submit">บันทึก</button>
+    </form>
+  </div>
+  <table id="tbl-treatments">
+    <thead><tr><th>วันที่</th><th>สัตว์เลี้ยง</th><th>สัตวแพทย์</th><th>วินิจฉัย</th><th>ยา/วิธีรักษา</th><th>นัดอ้างอิง</th><th></th></tr></thead>
+    <tbody></tbody>
+  </table>
+</main>
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <header id="modal-title"></header>
+    <div class="content" id="modal-content"></div>
+    <footer>
+      <button class="ghost" id="modal-cancel">ยกเลิก</button>
+      <button class="primary" id="modal-save">บันทึก</button>
+    </footer>
+  </div>
+</div>
+<footer>Pet Clinic • Node.js + MySQL • © 2025</footer>
+<script src="/client.js"></script>
+<script>
+  loadNavbar(); protectPage();
+  (async()=>{ await loadOwners(); await loadVets(); await loadPets(); await loadTreatments(); })();
+</script>
+</body></html>

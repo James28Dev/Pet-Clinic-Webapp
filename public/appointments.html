@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="th"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<link rel="stylesheet" href="/styles.css"/><title>ใบนัดหมาย | คลินิกสัตว์</title></head>
+<body>
+<div id="nav"></div>
+<main>
+  <h2>ใบนัดหมาย</h2>
+  <div class="card">
+    <form id="form-appointment" class="grid">
+      <label>เจ้าของ<select id="appt-owner"></select></label>
+      <label>สัตว์เลี้ยง<select id="appt-pet"></select></label>
+      <label>สัตวแพทย์<select id="appt-vet"></select></label>
+      <label>วัน-เวลา<input type="datetime-local" id="appt-datetime" required></label>
+      <label>เหตุผล<input id="appt-reason" placeholder="ฉีดวัคซีน/ตรวจสุขภาพ"></label>
+      <button class="primary" type="submit">เพิ่มใบนัด</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <div class="grid" style="grid-template-columns:repeat(4,1fr)">
+      <label>จากวันที่<input type="date" id="filter-from"></label>
+      <label>ถึงวันที่<input type="date" id="filter-to"></label>
+      <button id="btn-filter" class="primary" type="button">กรอง</button>
+      <button id="btn-clear" type="button" class="ghost">ล้าง</button>
+    </div>
+  </div>
+
+  <table id="tbl-appointments">
+    <thead>
+      <tr><th>วัน-เวลา</th><th>สัตว์เลี้ยง</th><th>เจ้าของ</th><th>สัตวแพทย์</th><th>เหตุผล</th><th></th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</main>
+<div class="modal-backdrop" id="modal-backdrop">
+  <div class="modal">
+    <header id="modal-title"></header>
+    <div class="content" id="modal-content"></div>
+    <footer>
+      <button class="ghost" id="modal-cancel">ยกเลิก</button>
+      <button class="primary" id="modal-save">บันทึก</button>
+    </footer>
+  </div>
+</div>
+<footer>Pet Clinic • Node.js + MySQL • © 2025</footer>
+<script src="/client.js"></script>
+<script>
+  loadNavbar(); protectPage();
+  (async()=>{
+    const owners = await loadOwners();
+    await loadVets();
+    await loadPets(owners[0]?.owner_id || null);
+    document.querySelector('#appt-owner').addEventListener('change', async (e)=>{
+      const ownerId = e.target.value;
+      const pets = await api('/api/pets?owner_id='+ownerId);
+      document.querySelector('#appt-pet').innerHTML =
+        pets.map(p=>`<option value="${p.pet_id}">${p.name} (${p.species})</option>`).join('');
+    });
+    await loadAppointments();
+  })();
+</script>
+</body></html>
